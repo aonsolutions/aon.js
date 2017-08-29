@@ -1,0 +1,23 @@
+{
+	"name": "aon.js",
+	"version": "0.0.0",
+	"description": "aon Solutions backend",
+	"keywords": [
+		"aon"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aonsolutions/aon.js.git"
+	},
+	"bin": {},
+	"dependencies": {
+		"sql": "^0.78.0",
+		"mysql": "^2.14.1"
+	},
+	"devDependencies": {
+		"sql-generate": "^1.5.0"
+	},
+	"scripts": {
+		"install": "node master-generate.js"
+	}
+}

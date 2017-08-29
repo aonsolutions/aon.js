@@ -6,7 +6,7 @@ var stream = fs.createWriteStream("./lib/master.js");
 sqlGenerate({
 		camelize: true,
 		modularize: true,
-		dsn: 'mysql://aonsolutions:40ns0lut10ns@127.0.0.1/test-aonsolutions-org',
+		dsn: 'mysql://dbuser:serubd2000@127.0.0.1/test-aonsolutions-org',
 	}, 
 	function(err, stats) {
 		if (err) {

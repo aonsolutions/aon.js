@@ -1,9 +1,7 @@
-var domain = require('./lib/domain');
+'use strict';
 
-exports.handler = (event, context, callback) => {
-	// TODO implement
-	domain.list(function(results){
-   		callback(null, JSON.stringify(results));
-    	});
-	callback(null, 'JSON.stringify(results)');
+module.exports = {
+  domain : require('./lib/domain'),
+  agreement : require('./lib/agreement'),
+//  invoice : require ('./lib/invoice')
 };

@@ -1,7 +1,7 @@
 var AON = require("..");
 
 AON.settlement.letter({
-  date: '',
+  date: '04/06/2016',
   enterprise: {
     cif: 'B01487271',
     name : 'AON SOLUTIONS, SL'
@@ -15,5 +15,8 @@ AON.settlement.letter({
       amount : 596.71,
       description: 'INDEMNIZACIÓN POR FIN DE CONTRATO TEMPORAL'
     }
+  ],
+  deductions: [
+    
   ]
 }, process.stdout );

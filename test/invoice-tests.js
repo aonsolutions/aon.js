@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-//var invoice	= require("../lib/invoice");
 var invoice	= require("../lib/invoice");
 
 /*
@@ -20,13 +19,13 @@ var pool = mysql.createPool({
 
 //selectAllInvoice();
 //selectInvoice(140);
-insertInvoice();
+//insertInvoice();
 
 function insertInvoice(){
   var data = new Object();
   data.domain = 1;
   data.series = 'P';
-  data.number = 33333;
+  data.number = 44444;
   data.issue_date = '2017-10-02';
   data.tax_date = '2017-10-02';
 //  data.registry = 20;
@@ -78,7 +77,7 @@ function updateInvoice(id){
       // code to execute on data retrieval
       console.log("result from db is : ",data);
       console.log(" ");
-      deleteDomain(id);
+      deleteInvoice(id);
     }
   });
 }

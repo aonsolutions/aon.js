@@ -23,6 +23,10 @@ var pool = mysql.createPool({
 
 function insertInvoice(){
   var data = new Object();
+  data.type = 0;
+  data.total = 0.0;
+  data.comments = "comentarios de la factura";
+
   data.domain = 1;
   data.series = 'P';
   data.number = 44444;
@@ -30,8 +34,8 @@ function insertInvoice(){
   data.tax_date = '2017-10-02';
 //  data.registry = 20;
   data.scope = 1;
-  data.nif = '24407106N';
-  data.name = 'Amaya Cabello Azkuenaga';
+  data.nif = '16283545M';
+  data.name = 'ANA';
 
   console.log(" INSERT INVOICE ");
   console.log(" ");

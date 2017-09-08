@@ -25,8 +25,8 @@ data.domain = 5355;
 data.tax_date = '2017-10-02';
 
 data.type = 2;
-data.series = 'P';
-data.number = 20202020;
+//data.series = 'P';
+data.number = 30303030;
 data.issue_date = '2017-10-02';
 // country
 data.nif = '16283545M';

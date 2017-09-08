@@ -1,7 +1,11 @@
 var AON = require("..");
 
-AON.settlement.letter({
-  date: '04/06/2016',
+AON.settlement['a3Letter']({
+  net : 596.71,
+  payment : 596.71,
+  deduction : 0.00,
+  place : 'ÁLAVA/ARABA',
+  date: new Date('2016-04-06'),
   enterprise: {
     cif: 'B01487271',
     name : 'AON SOLUTIONS, SL'
@@ -17,6 +21,7 @@ AON.settlement.letter({
     }
   ],
   deductions: [
-    
-  ]
+
+  ],
+  logo : '/home/rtrepiana/Downloads/aon-logo'
 }, process.stdout );

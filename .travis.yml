@@ -1,3 +1,11 @@
 language: node_js
 node_js:
   - "6.10"
+services:
+  - docker
+before_install:
+  # Setup database server
+  - "docker run -d --name mariadb -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=aon mariadb:10.0"
+  - "docker run -e CHECK_PORT=3306 -e CHECK_HOST=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' mariadb) giorgos/takis"
+  # Setup aon's database
+  - "cat sql/create-db.sql | docker exec -i mariadb mysql aon"

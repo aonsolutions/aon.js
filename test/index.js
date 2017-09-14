@@ -17,15 +17,15 @@ aon.agreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
 
-    aon.agreement.set(pool,
-      agreement,
-      function(pool, agreement){
-        process.exit();
-      }
-    );
+    // aon.agreement.set(pool,
+    //   agreement,
+    //   function(pool, agreement){
+    //     process.exit();
+    //   }
+    // );
 
-    //process.stdout.write(JSON.stringify(agreement));
-    //process.exit();
+    process.stdout.write(JSON.stringify(agreement));
+    process.exit();
   }
 );
 

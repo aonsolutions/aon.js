@@ -8,6 +8,7 @@ env:
 before_script:
   # Setup environment
   - "export MYSQL_USER=root"
+  - "export MYSQL_PASSWD="
   - "export MYSQL_DATABASE=tedi"
   # Setup database server
   - "docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=$MYSQL_DATABASE $DOCKER_MYSQL_TYPE:$DOCKER_MYSQL_VERSION"

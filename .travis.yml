@@ -3,9 +3,14 @@ node_js:
   - "6.10"
 services:
   - docker
-before_install:
+env:
+  - DOCKER_MYSQL_TYPE=mariadb
+  - DOCKER_MYSQL_VERSION=10.0
+before_script:
+  # Setup environment
+  - "export MYSQL_USER=root"
+  - "export MYSQL_DATABASE=tedi"
   # Setup database server
-  - "docker run -d --name mariadb -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=aon mariadb:10.0"
-  - "docker run -e CHECK_PORT=3306 -e CHECK_HOST=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' mariadb) giorgos/takis"
-  # Setup aon's database
-  - "cat sql/create-db.sql | docker exec -i mariadb mysql aon"
+  - "docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=$MYSQL_DATABASE $DOCKER_MYSQL_TYPE:$DOCKER_MYSQL_VERSION"
+  - export MYSQL_HOST=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' mysql)
+  - "docker run -e CHECK_PORT=3306 -e CHECK_HOST=$MYSQL_HOST giorgos/takis"

@@ -1,37 +1,16 @@
-var aon = require("..");
-var mysql = require("mysql");
 
-var pool  = mysql.createPool({
-  host     : '127.0.0.1',
-  user     : 'root',
-  password : 'r00t',
-  database : 'test-aonsolutions-org'
+var fs = require('fs');
+var path = require('path');
+
+var common = require('./common')
+
+common.setupDB( (err, results, fields) => {
+	if ( err ) throw err;
+	var files = fs.readdirSync(__dirname);
+	for(var i = 0, file; file = files[i]; i++) {
+	  var filePath = path.join(__dirname, file);
+	  if (path.extname(file) === '.js') {
+	    require(filePath);
+	  }
+	}
 });
-
-// aon.domain.get(pool,
-//   function(params){ return params.id.equals(0)},
-//   function(error, results, fields){ console.log(results) }
-// );
-
-aon.agreement.get(pool,
-  function(params){ return params.id.equals(1156)},
-  function(pool, agreement){
-
-    // aon.agreement.set(pool,
-    //   agreement,
-    //   function(pool, agreement){
-    //     process.exit();
-    //   }
-    // );
-
-    process.stdout.write(JSON.stringify(agreement));
-    process.exit();
-  }
-);
-
-// aon.agreement.set(pool,
-//   agreement,
-//   function(pool, agreement){
-//     process.exit();
-//   }
-// );

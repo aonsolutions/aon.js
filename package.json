@@ -24,6 +24,6 @@
 	},
 	"scripts": {
 		"lint": "eslint .",
-		"prepare": "node prepare.js"
+		"test" : "node test"
 	}
 }

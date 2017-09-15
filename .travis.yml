@@ -4,8 +4,7 @@ node_js:
 services:
   - docker
 env:
-  - DOCKER_MYSQL_TYPE=mariadb
-  - DOCKER_MYSQL_VERSION=10.0
+  - "DOCKER_MYSQL_TYPE=mariadb DOCKER_MYSQL_VERSION=10.0"
 before_script:
   # Setup environment
   - "export MYSQL_USER=root"

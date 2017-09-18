@@ -1,7 +1,7 @@
 var fs = require('fs');
 var mysql = require('mysql')
 
-exports.pool  = mysql.createPool({
+var pool  = mysql.createPool({
 	supportBigNumbers : true,
 	multipleStatements : true,
 
@@ -14,6 +14,8 @@ exports.pool  = mysql.createPool({
 exports.setupDB = function ( callback ) {
 	fs.readFile('./sql/setup-db.sql', 'utf-8', (err, data) => {
 		if (err) throw err;
-		exports.pool.query(data, callback)
+		pool.query(data, (err, reslts, fields ) => {
+			callback( err, pool);
+		})
 	});
 }

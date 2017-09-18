@@ -14,3 +14,9 @@ before_script:
   - "docker run -d --name mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=$MYSQL_DATABASE $DOCKER_MYSQL_TYPE:$DOCKER_MYSQL_VERSION"
   - export MYSQL_HOST=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' mysql)
   - "docker run -e CHECK_PORT=3306 -e CHECK_HOST=$MYSQL_HOST giorgos/takis"
+deploy:
+  provider: npm
+  email: $NPM_EMAIL_ADDRESS
+  api_key: $NPM_AUTH_TOKEN
+  on:
+    tags: true

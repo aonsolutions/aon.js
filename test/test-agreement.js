@@ -33,13 +33,8 @@ aon.agreement.get(pool,
     aon.agreement.set(pool,
       agreement,
       function(pool, agreement){
-        aon.agreement.get(pool,
-          function(params){ return params.id.equals(1156)},
-          function(pool, agreement){
-            process.stdout.write(JSON.stringify(agreement));
-            process.exit();
-          }
-        );
+        //process.stdout.write(JSON.stringify(agreement));
+        //process.exit();
       }
     );
 
@@ -49,6 +44,6 @@ aon.agreement.get(pool,
 );
 
 modificarAgreement = function(agreement){
-  //agreement.description = "CONVENIO MADRID";
-  agreement.description = "CONVENIO COLECTIVO DE OFICINAS Y DESPACHOS PARA MADRID";
+  agreement.description = "CONVENIO MADRID";
+  //agreement.description = "CONVENIO COLECTIVO DE OFICINAS Y DESPACHOS PARA MADRID";
 }

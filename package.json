@@ -12,9 +12,14 @@
 	},
 	"bin": {},
 	"dependencies": {
-		"sql": "^0.78.0",
+		"bcryptjs": "^2.4.3",
+		"google-auth-library": "^0.11.0",
+		"googleapis": "^21.3.0",
+		"jwt-simple": "^0.5.1",
+		"moment": "^2.18.1",
 		"mysql": "^2.14.1",
 		"pdfkit": "^0.8.3",
+		"sql": "^0.78.0",
 		"written-number": "^0.6.3"
 	},
 	"devDependencies": {

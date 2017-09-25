@@ -7,4 +7,5 @@ module.exports = {
 	invoice : require ('./lib/invoice/invoice'),
 	sabbatic : require ('./lib/invoice/sabbatic'),
 	settlement : require('./lib/settlement'),
+	auth : require ('./lib/auth/auth')
 };

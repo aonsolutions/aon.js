@@ -24,6 +24,35 @@ var pool  = mysql.createPool({
   database : 'test-aonsolutions-org'
 });
 
+//Comprueba si la primera fecha es posterior o igual a la segunda
+var greaterThanEquals = function(date1, date2){
+  if (date1 == null) {
+    return true;
+  }
+  else if(date1 >= date2){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+//Comprueba si la primera fecha es anterior o igual a la segunda
+var lessThanEquals = function(date1, date2){
+  if (date1 == null) {
+    return false;
+  }
+  else if (date2 == null) {
+    return true;
+  }
+  else if(date1 <= date2){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 aon.agreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
@@ -37,7 +66,9 @@ aon.agreement.get(pool,
     // borrarPayment(agreement); //borrar payments
     // insertarExtra(agreement); //insertar extra
     // borrarExtra(agreement); //borrar extra
-    // //insertarAgreeLevelCat(agreement); //insertar Agreement Level Category
+    // insertarPeriodPayment(agreement); //insertar Period Payment
+    // borrarPeriodPayment(agreement); //borrar Period Payment
+    // insertarAgreeLevelCat(agreement); //insertar Agreement Level Category
     // borrarAgreeLevelCat(agreement); //borrar Agreement Level Category
     //
     // aon.agreement.set(pool,
@@ -130,6 +161,98 @@ borrarExtra = function(agreement){
   var extras = agreement.extras;
   extras.splice(0,1);
 }
+
+//ESTE METODO NO FUNCIONA AUN
+insertarPeriodPayment = function(agreement){
+  var newData{
+    data_start_date : new Date(2010,05,13),
+    data_end_date : null,
+    data_level : 5901,
+    data_name : "PAGAS",
+    data_value : "14"
+  }
+
+  var newPeriod = {
+    start_date : existing_periods[i].start_date,
+    end_date : existing_periods[i].end_date
+  }
+
+  var datas = [];
+  var periods = [];
+
+  //CREATE ALL DATAS AND PERIOD INCLUDING NEWS
+  periods.push(newPeriod);
+  var existing_periods = agreement.periods;
+  for(var i = 0; i < existing_periods.length; i++){
+    var period = {
+      start_date : existing_periods[i].start_date,
+      end_date : existing_periods[i].end_date
+    }
+    periods.push(period);
+    for(var j = 0; j < existing_periods[i].levels.length; j++){
+      var level = existing_periods[i].levels[j];
+      for(var data in level.datas){
+        var new_data = {
+          data_start_date : existing_periods[i].start_date,
+          data_end_date : existing_periods[i].end_date,
+          data_level : level.id,
+          data_name : data,
+          data_value : level.datas[data]
+        }
+      }
+      datas.push(new_data);
+    }
+  }
+  datas.push(newData);
+
+  // CREATE AND ORDER PERIODS
+  var newPeriods = crearNuevosPeriods(periods);
+
+  var finalPeriods = [];
+
+  for (var k = 0; k < newPeriods.length; k++){
+    var p_start = newPeriods[k].start_date;
+    var p_end = newPeriods[k].end_date;
+    var finalPeriod = {
+      start_date : p_start,
+      end_date : p_end,
+      levels : []
+    }
+    for(var z = 0; z < datas.length; z++){
+      if (greaterThanEquals(datas[z].data_start_date, p_start) && greaterThanEquals(datas[z].data_end_date, p_end)){
+        if(notExistLevelInPeriod())
+      }
+    }
+  }
+}
+
+crearNuevosPeriods = function(periods){
+  var period=[];
+  //Caso base para comprar la primera vez
+  var p = {
+    start_date: 0,
+    end_date : 0
+  }
+  for ( var i = 0; i < periods.length; i++ ){
+    var dateAux = new Date(periods[i].startDate);
+    dateAux.setTime(dateAux.getTime() - 1 * (24*360*1000));
+    p.end_date = greaterThanEquals(p.end_date,dateAux) ? dateAux : p.end_date;
+    p = {
+      start_date: parseDate(results[i].startDate),
+      end_date : parseDate(results[i].endDate)
+    }
+    period[i] = p
+  }
+  return period;
+}
+
+
+borrarPeriodPayment = function(agreement){
+  var levelsCat = agreement.levelsCategory;
+  levelsCat.splice(0,1);
+}
+
+
 
 //ESTE METODO NO FUNCIONA AUN
 insertarAgreeLevelCat = function(agreement){

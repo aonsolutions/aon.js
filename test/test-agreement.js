@@ -24,6 +24,16 @@ var pool  = mysql.createPool({
   database : 'test-aonsolutions-org'
 });
 
+//Comprueba si ambas fechas son iguales
+var greaterThanEquals = function(date1, date2){
+  if (date1 == date2) {
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 //Comprueba si la primera fecha es posterior o igual a la segunda
 var greaterThanEquals = function(date1, date2){
   if (date1 == null) {
@@ -164,7 +174,7 @@ borrarExtra = function(agreement){
 
 //ESTE METODO NO FUNCIONA AUN
 insertarPeriodPayment = function(agreement){
-  var newData{
+  var newData = {
     data_start_date : new Date(2010,05,13),
     data_end_date : null,
     data_level : 5901,
@@ -173,17 +183,18 @@ insertarPeriodPayment = function(agreement){
   }
 
   var newPeriod = {
-    start_date : existing_periods[i].start_date,
-    end_date : existing_periods[i].end_date
+    start_date : newData.data_start_date,
+    end_date : newData.data_end_date
   }
 
   var datas = [];
   var periods = [];
 
   //CREATE ALL DATAS AND PERIOD INCLUDING NEWS
+  datas.push(newData);
   periods.push(newPeriod);
-  var existing_periods = agreement.periods;
   for(var i = 0; i < existing_periods.length; i++){
+    var existing_periods = agreement.periods;
     var period = {
       start_date : existing_periods[i].start_date,
       end_date : existing_periods[i].end_date
@@ -203,7 +214,6 @@ insertarPeriodPayment = function(agreement){
       datas.push(new_data);
     }
   }
-  datas.push(newData);
 
   // CREATE AND ORDER PERIODS
   var newPeriods = crearNuevosPeriods(periods);
@@ -219,8 +229,31 @@ insertarPeriodPayment = function(agreement){
       levels : []
     }
     for(var z = 0; z < datas.length; z++){
-      if (greaterThanEquals(datas[z].data_start_date, p_start) && greaterThanEquals(datas[z].data_end_date, p_end)){
-        if(notExistLevelInPeriod())
+      if (equals(datas[z].data_start_date, p_start)){
+        insertLevelDatainPeriod(datas[z], finalPeriod.levels);
+      }
+    }
+  }
+  agreement.periods = finalPeriods;
+}
+
+insertLevelDatainPeriod = function(data, levels){
+  if (levels.length == 0){
+    var insertLevel = {
+      id : data.data_level,
+      datas : []
+    }
+    var insertData = {
+      data.data_name : data.data_value
+    }
+    insertLevel.datas.push(insertData);
+  }else{
+    for(var i = 0; i < levels.length; i++){
+      if(data.data_level == levels[i].id){
+        var insertDataExistLvl = {
+          data.data_name : data.data_value
+        }
+        levels[i].datas.push(insertDataExistLvl);
       }
     }
   }

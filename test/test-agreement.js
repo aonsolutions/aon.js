@@ -243,16 +243,14 @@ insertLevelDatainPeriod = function(data, levels){
       id : data.data_level,
       datas : []
     }
-    var insertData = {
-      data.data_name : data.data_value
-    }
+    var insertData = {}
+    insertData[data.data_name] = data.data_value;
     insertLevel.datas.push(insertData);
   }else{
     for(var i = 0; i < levels.length; i++){
       if(data.data_level == levels[i].id){
-        var insertDataExistLvl = {
-          data.data_name : data.data_value
-        }
+        var insertDataExistLvl = {}
+        insertDataExistLvl[data.data_name] = data.data_value;
         levels[i].datas.push(insertDataExistLvl);
       }
     }

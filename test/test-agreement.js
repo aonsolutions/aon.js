@@ -67,7 +67,7 @@ aon.agreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
 
-    // modificarAgreement(agreement); //modifica description
+    modificarAgreement(agreement); //modifica description
     // modificarPayments(agreement); //modifica payments
     // modificarExtras(agreement); //modifica extras
     // modificarLevelCategory(agreement); //modifica levelCategory
@@ -81,16 +81,16 @@ aon.agreement.get(pool,
     // insertarAgreeLevelCat(agreement); //insertar Agreement Level Category
     // borrarAgreeLevelCat(agreement); //borrar Agreement Level Category
     //
-    // aon.agreement.set(pool,
-    //   agreement,
-    //   function(pool, agreement){
-    //     //process.stdout.write(JSON.stringify(agreement));
-    //     //process.exit();
-    //   }
-    // );
+    aon.agreement.set(pool,
+      agreement,
+      function(pool, agreement){
+        //process.stdout.write(JSON.stringify(agreement));
+        //process.exit();
+      }
+    );
 
-    process.stdout.write(JSON.stringify(agreement));
-    process.exit();
+    // process.stdout.write(JSON.stringify(agreement));
+    // process.exit();
   }
 );
 

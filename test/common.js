@@ -14,7 +14,7 @@ var pool  = mysql.createPool({
 exports.setupDB = function ( callback ) {
 	fs.readFile('./sql/setup-db.sql', 'utf-8', (err, data) => {
 		if (err) throw err;
-		pool.query(data, (err, reslts, fields ) => {
+		pool.query(data, (err, results, fields ) => {
 			callback( err, pool);
 		})
 	});

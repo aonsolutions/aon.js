@@ -1,8 +1,8 @@
-var tedi = require('..');
+var domain = require('../lib/domain')
+
 
 module.exports = function ( pool, callback ) {
-
-	tedi.domain.get(
+	domain.get(
 		pool,
 		function ( params ) {
 			return params.id.equals(0);
@@ -12,5 +12,4 @@ module.exports = function ( pool, callback ) {
 			callback();
 		}
 	);
-
 };

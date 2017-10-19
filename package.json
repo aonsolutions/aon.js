@@ -15,11 +15,13 @@
 		"bcryptjs": "^2.4.3",
 		"google-auth-library": "^0.11.0",
 		"googleapis": "^21.3.0",
+		"https": "^1.0.0",
 		"jwt-simple": "^0.5.1",
 		"moment": "^2.18.1",
 		"mysql": "^2.14.1",
 		"pdf-image": "^1.1.0",
 		"pdfkit": "^0.8.3",
+		"querystring": "^0.2.0",
 		"sql": "^0.78.0",
 		"written-number": "^0.6.3"
 	},

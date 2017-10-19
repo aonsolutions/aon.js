@@ -63,11 +63,23 @@ var lessThanEquals = function(date1, date2){
   }
 }
 
+
 aon.agreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
 
-    modificarAgreement(agreement); //modifica description
+    //Create new AGREEMENT
+    var aagreement = createNewAgreement();
+    // SET AGREEMENT TEST
+    aon.agreement.set(pool,
+      aagreement,
+      function(pool, aagreement){
+        console.log(aagreement.id);
+        process.exit();
+      }
+    );
+
+    // modificarAgreement(agreement); //modifica description
     // modificarPayments(agreement); //modifica payments
     // modificarExtras(agreement); //modifica extras
     // modificarLevelCategory(agreement); //modifica levelCategory
@@ -81,18 +93,122 @@ aon.agreement.get(pool,
     // insertarAgreeLevelCat(agreement); //insertar Agreement Level Category
     // borrarAgreeLevelCat(agreement); //borrar Agreement Level Category
     //
-    aon.agreement.set(pool,
-      agreement,
-      function(pool, agreement){
-        //process.stdout.write(JSON.stringify(agreement));
-        //process.exit();
-      }
-    );
+    // aon.agreement.set(pool,
+    //   agreement,
+    //   function(pool, agreement){
+    //     //process.stdout.write(JSON.stringify(agreement));
+    //     //process.exit();
+    //   }
+    // );
 
-    // process.stdout.write(JSON.stringify(agreement));
+    //process.stdout.write(JSON.stringify(agreement));
     // process.exit();
   }
 );
+
+createNewAgreement = function() {
+  var newAgreement = {};
+
+  newAgreement.id = null;
+  newAgreement.domain = 8776;
+  newAgreement.calendar = null;
+  newAgreement.description = "CONVENIO DE SERGIO VALDEPEÑAS DEL POZO"
+  newAgreement.payments = [];
+
+  var payment_1 = {};
+  payment_1.id = null;
+  payment_1.code = "SALARIO_BASE";
+  payment_1.expression = "/*user*/SALARIO_ANUAL/**/ / PAGAS * DIAS_TRABAJADOS / DIAS_MES ";
+  payment_1.description = "[1]SALARIO BASE";
+  payment_1.type = "CRA 1";
+  payment_1.irpfExpression = "__V";
+  payment_1.quoteExpression = "__V";
+
+  var payment_2 = {};
+  payment_2.id = null;
+  payment_2.code = "SALARIO_BASE_SERGIO";
+  payment_2.expression = "/*user*/SALARIO_ANUAL/**/ / PAGAS * DIAS_TRABAJADOS / DIAS_MES ";
+  payment_2.description = "[1]SALARIO BASE SERGIO";
+  payment_2.type = "CRA 1";
+  payment_2.irpfExpression = "__S";
+  payment_2.quoteExpression = "__S";
+
+  newAgreement.payments.push(payment_1);
+  newAgreement.payments.push(payment_1);
+
+  newAgreement.extras = [];
+
+  var payment_3 = {};
+  payment_3.id = null;
+  payment_3.expression = "/*user*/(SALARIO_BASE + ANTIGUEDAD) *  ( 1 + MAX(0,DIAS(INICIO_CONTRATO,INICIO_NOMINA))  / DIAS_TRABAJADOS) /6/**/";
+  payment_3.description = "[4]PAGA EXTRAORDINARIA DICIEMBRE";
+  payment_3.type = "CRA 4";
+  payment_3.irpfExpression = "__Z";
+  payment_3.quoteExpression = "__Z";
+
+  var extra = {};
+  extra.start_date = "1/1";
+  extra.end_date = "12/12";
+  extra.issue_date = "27/6";
+  extra.agreePayment = payment_3;
+
+  newAgreement.extras.push(extra);
+
+  newAgreement.periods = [];
+
+  var period = {};
+  period.start_date = new Date(2017,06,27);
+  period.end_date = null;
+  period.levels = [];
+
+  var level_1 = {};
+  level_1.id = null;
+  level_1.datas = {};
+  level_1.datas["SALARIO_ANUAL"] = "15000.99";
+
+  var level_2 = {};
+  level_2.id = null;
+  level_2.datas = {};
+  level_2.datas["SALARIO_ANUAL"] = "22111.11";
+  level_2.datas["JORNADA_LABORAL"] = "1666";
+  level_2.datas["DIETA"] = "63.33";
+
+  period.levels.push(level_1);
+  period.levels.push(level_2);
+
+  newAgreement.periods.push(period);
+
+  newAgreement.levelsCategory = [];
+
+  var level_cat_1 = {};
+  level_cat_1.id = null;
+  level_cat_1.description = "I";
+  level_cat_1.categories = [];
+
+  var cat_1 = {};
+  cat_1.id = null;
+  cat_1.description = "PERSONAL TITULADO DE GRADO SUPERIOR";
+
+  level_cat_1.categories.push(cat_1);
+
+  var level_cat_2 = {};
+  level_cat_2.id = null;
+  level_cat_2.description = "II";
+  level_cat_2.categories = [];
+
+  var cat_2 = {};
+  cat_2.id = null;
+  cat_2.description = "OPERADOR DE PRIMERA";
+  cat_2.description = "DELINEANTE PROYECTISTA";
+  cat_2.description = "OCIFIAL DE PRIMERA";
+
+  level_cat_2.categories.push(cat_2);
+
+  newAgreement.levelsCategory.push(level_cat_1);
+  newAgreement.levelsCategory.push(level_cat_2);
+
+  return newAgreement;
+}
 
 modificarAgreement = function(agreement){
   agreement.description = "CONVENIO MADRID";

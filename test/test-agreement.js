@@ -69,7 +69,24 @@ aon.agreement.get(pool,
   function(pool, agreement){
 
     //Create new AGREEMENT
-    var aagreement = createNewAgreement();
+    var aagreement = createNewAgreement(); //(LINEA 109)
+    //Insert new level and level category
+    insertLevelAndCat(aagreement); //(LINEA 213)
+    //Erase a level
+    eraseLevelAndCat(aagreement); //(LINEA 236)
+    //Insert Payment
+    insertPayment(aagreement); //(LINEA 241)
+    //Erase Payment
+    erasePayment(aagreement); //(LINEA 255)
+    //Insert Extra
+    insertExtra(aagreement); //(LINEA 260)
+    //Erase Extra
+    eraseExtra(aagreement); //(LINEA 279)
+    //Insert Data
+    insertData(aagreement); //(LINEA 284)
+    //Erase Data -> Aun por definir
+    eraseData(agreement); //(LINEA 388)
+
     // SET AGREEMENT TEST
     aon.agreement.set(pool,
       aagreement,
@@ -84,22 +101,6 @@ aon.agreement.get(pool,
     // modificarExtras(agreement); //modifica extras
     // modificarLevelCategory(agreement); //modifica levelCategory
     // modificarPeriods(agreement); //modifica Periods
-    // insertarPayment(agreement); //insertar payments
-    // borrarPayment(agreement); //borrar payments
-    // insertarExtra(agreement); //insertar extra
-    // borrarExtra(agreement); //borrar extra
-    // insertarPeriodPayment(agreement); //insertar Period Payment
-    // borrarPeriodPayment(agreement); //borrar Period Payment
-    // insertarAgreeLevelCat(agreement); //insertar Agreement Level Category
-    // borrarAgreeLevelCat(agreement); //borrar Agreement Level Category
-    //
-    // aon.agreement.set(pool,
-    //   agreement,
-    //   function(pool, agreement){
-    //     //process.stdout.write(JSON.stringify(agreement));
-    //     //process.exit();
-    //   }
-    // );
 
     //process.stdout.write(JSON.stringify(agreement));
     // process.exit();
@@ -210,42 +211,35 @@ createNewAgreement = function() {
   return newAgreement;
 }
 
-modificarAgreement = function(agreement){
-  agreement.description = "CONVENIO MADRID";
+insertLevelAndCat = function(aagreement){
+  var levelsCat = aagreement.levelsCategory;
+  var newCategories = [];
+  var newCat = {
+    id: null,
+    description: "PEON AJEDREZ"
+  }
+  var newCat2 = {
+    id: null,
+    description: "NERD"
+  }
+  newCategories.push(newCat);
+  newCategories.push(newCat2);
+
+  var newLevelCat = {
+    id: null,
+    description: "NIVEL 66",
+    categories: newCategories
+  }
+
+  levelsCat.push(newLevelCat);
 }
 
-modificarPayments = function(agreement){
-  var payments = agreement.payments;
-  payments[0].irpfExpression = "Caracola";
+eraseLevelAndCat = function(agreement){
+  var levelsCat = agreement.levelsCategory;
+  levelsCat.splice(0,1);
 }
 
-modificarExtras = function(agreement){
-  var extras = agreement.extras;
-  extras[0].start_date = "6/7";
-  extras[0].end_date = "1/12"
-  extras[0].issue_date = "66/66"
-  var agreePay = extras[1].agreePayment;
-  agreePay.quoteExpression = "Caracola";
-}
-
-modificarLevelCategory = function(agreement){
-  var levelsCategory = agreement.levelsCategory;
-  levelsCategory[0].description = "001";
-  var categories = levelsCategory[1].categories;
-  categories[0].description = "PERSONAL TITULADO URJC";
-}
-
-modificarPeriods = function(agreement){
-  var period = agreement.periods[0];
-  var newDate = new Date(2010,05,13);
-  period.start_date = newDate;
-  var levels = period.levels;
-  levels[0].datas.SALARIO_ANUAL = "66666";
-  levels[11].datas.JORNADA_LABORAL = "66666";
-  levels[11].datas.IMPORTE_KM = "0.66666";
-}
-
-insertarPayment = function(agreement){
+insertPayment = function(agreement){
   var payments = agreement.payments;
   var newPay = {
     id: null,
@@ -259,12 +253,12 @@ insertarPayment = function(agreement){
   payments.push(newPay);
 }
 
-borrarPayment = function(agreement){
+erasePayment = function(agreement){
   var payments = agreement.payments;
   payments.splice(0,1);
 }
 
-insertarExtra = function(agreement){
+insertExtra = function(agreement){
   var extras = agreement.extras;
   var newPay = {
     id: null,
@@ -283,13 +277,12 @@ insertarExtra = function(agreement){
   extras.push(newExtra);
 }
 
-borrarExtra = function(agreement){
+eraseExtra = function(agreement){
   var extras = agreement.extras;
   extras.splice(0,1);
 }
 
-//ESTE METODO NO FUNCIONA AUN
-insertarPeriodPayment = function(agreement){
+insertData = function(agreement){
   var newData = {
     data_start_date : new Date(2010,05,13),
     data_end_date : null,
@@ -332,7 +325,7 @@ insertarPeriodPayment = function(agreement){
   }
 
   // CREATE AND ORDER PERIODS
-  var newPeriods = crearNuevosPeriods(periods);
+  var newPeriods = createNewPeriods(periods);
 
   var finalPeriods = [];
 
@@ -346,14 +339,14 @@ insertarPeriodPayment = function(agreement){
     }
     for(var z = 0; z < datas.length; z++){
       if (equals(datas[z].data_start_date, p_start)){
-        insertLevelDatainPeriod(datas[z], finalPeriod.levels);
+        insertLevelDataPeriod(datas[z], finalPeriod.levels);
       }
     }
   }
   agreement.periods = finalPeriods;
 }
 
-insertLevelDatainPeriod = function(data, levels){
+insertLevelDataPeriod = function(data, levels){
   if (levels.length == 0){
     var insertLevel = {
       id : data.data_level,
@@ -373,7 +366,7 @@ insertLevelDatainPeriod = function(data, levels){
   }
 }
 
-crearNuevosPeriods = function(periods){
+createNewPeriods = function(periods){
   var period=[];
   //Caso base para comprar la primera vez
   var p = {
@@ -393,37 +386,52 @@ crearNuevosPeriods = function(periods){
   return period;
 }
 
-
-borrarPeriodPayment = function(agreement){
+eraseData = function(agreement){
   var levelsCat = agreement.levelsCategory;
   levelsCat.splice(0,1);
 }
 
 
+/**
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+----------------------    	METODOS REUTILIZABLES     -------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
 
-//ESTE METODO NO FUNCIONA AUN
-insertarAgreeLevelCat = function(agreement){
-  var levelsCat = agreement.levelsCategory;
-  var newCategories = [];
-  var newCat = {
-    id: null,
-    description: "PEON SUMISO"
-  }
-  var newCat2 = {
-    id: null,
-    description: "NERD"
-  }
-  newCategories.push(newCat);
-  newCategories.push(newCat2);
-  var newLevelCat = {
-    id: null,
-    description: "NIVEL 66",
-    categories: newCategories
-  }
-  levelsCat.push(newLevelCat);
+
+modificarAgreement = function(agreement){
+  agreement.description = "CONVENIO MADRID";
 }
 
-borrarAgreeLevelCat = function(agreement){
-  var levelsCat = agreement.levelsCategory;
-  levelsCat.splice(0,1);
+modificarPayments = function(agreement){
+  var payments = agreement.payments;
+  payments[0].irpfExpression = "Caracola";
+}
+
+modificarExtras = function(agreement){
+  var extras = agreement.extras;
+  extras[0].start_date = "6/7";
+  extras[0].end_date = "1/12"
+  extras[0].issue_date = "66/66"
+  var agreePay = extras[1].agreePayment;
+  agreePay.quoteExpression = "Caracola";
+}
+
+modificarLevelCategory = function(agreement){
+  var levelsCategory = agreement.levelsCategory;
+  levelsCategory[0].description = "001";
+  var categories = levelsCategory[1].categories;
+  categories[0].description = "PERSONAL TITULADO URJC";
+}
+
+modificarPeriods = function(agreement){
+  var period = agreement.periods[0];
+  var newDate = new Date(2010,05,13);
+  period.start_date = newDate;
+  var levels = period.levels;
+  levels[0].datas.SALARIO_ANUAL = "66666";
+  levels[11].datas.JORNADA_LABORAL = "66666";
+  levels[11].datas.IMPORTE_KM = "0.66666";
 }

@@ -1,5 +1,5 @@
 var mysql = require("mysql");
-var sabbatic	= require("../lib/invoice/sabbatic");
+var invoice	= require("../lib/invoice/invoiceImport");
 
 /*
   var pool = mysql.createPool({
@@ -40,6 +40,6 @@ data.tax_quota = 2.1;
 data.surcharge_percentage = 0;
 data.surcharge_quota = 0;
 
-sabbatic.sabbatic(pool, data, function(error, result){
+invoice.import(pool, data, function(error, result){
 
 })

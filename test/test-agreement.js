@@ -71,21 +71,21 @@ aon.agreement.get(pool,
     //Create new AGREEMENT
     var aagreement = createNewAgreement(); //(LINEA 109)
     //Insert new level and level category
-    insertLevelAndCat(aagreement); //(LINEA 213)
+    //insertLevelAndCat(aagreement); //(LINEA 213)
     //Erase a level
-    eraseLevelAndCat(aagreement); //(LINEA 236)
+    //eraseLevelAndCat(aagreement); //(LINEA 236)
     //Insert Payment
-    insertPayment(aagreement); //(LINEA 241)
+    //insertPayment(aagreement); //(LINEA 241)
     //Erase Payment
-    erasePayment(aagreement); //(LINEA 255)
+    //erasePayment(aagreement); //(LINEA 255)
     //Insert Extra
-    insertExtra(aagreement); //(LINEA 260)
+    //insertExtra(aagreement); //(LINEA 260)
     //Erase Extra
-    eraseExtra(aagreement); //(LINEA 279)
+    //eraseExtra(aagreement); //(LINEA 279)
     //Insert Data
-    insertData(aagreement); //(LINEA 284)
+    //insertData(aagreement); //(LINEA 284)
     //Erase Data -> Aun por definir
-    eraseData(agreement); //(LINEA 388)
+    //eraseData(agreement); //(LINEA 388)
 
     // SET AGREEMENT TEST
     aon.agreement.set(pool,

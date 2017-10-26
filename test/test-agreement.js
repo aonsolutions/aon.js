@@ -91,7 +91,7 @@ aon.agreement.get(pool,
     aon.agreement.set(pool,
       aagreement,
       function(pool, aagreement){
-        console.log(aagreement.id);
+        // console.log(aagreement.id);
         process.exit();
       }
     );
@@ -102,7 +102,7 @@ aon.agreement.get(pool,
     // modificarLevelCategory(agreement); //modifica levelCategory
     // modificarPeriods(agreement); //modifica Periods
 
-    //process.stdout.write(JSON.stringify(agreement));
+    // process.stdout.write(JSON.stringify(agreement));
     // process.exit();
   }
 );
@@ -135,7 +135,7 @@ createNewAgreement = function() {
   payment_2.quoteExpression = "__S";
 
   newAgreement.payments.push(payment_1);
-  newAgreement.payments.push(payment_1);
+  newAgreement.payments.push(payment_2);
 
   newAgreement.extras = [];
 
@@ -200,10 +200,18 @@ createNewAgreement = function() {
   var cat_2 = {};
   cat_2.id = null;
   cat_2.description = "OPERADOR DE PRIMERA";
-  cat_2.description = "DELINEANTE PROYECTISTA";
-  cat_2.description = "OCIFIAL DE PRIMERA";
+
+  var cat_3 = {};
+  cat_3.id = null;
+  cat_3.description = "DELINEANTE PROYECTISTA";
+
+  var cat_4 = {};
+  cat_4.id = null;
+  cat_4.description = "OCIFIAL DE PRIMERA";
 
   level_cat_2.categories.push(cat_2);
+  level_cat_2.categories.push(cat_3);
+  level_cat_2.categories.push(cat_4);
 
   newAgreement.levelsCategory.push(level_cat_1);
   newAgreement.levelsCategory.push(level_cat_2);

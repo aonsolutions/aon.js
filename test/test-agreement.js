@@ -64,12 +64,12 @@ var lessThanEquals = function(date1, date2){
 }
 
 
-aon.agreement.get(pool,
+aon.oldAgreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
 
     //Create new AGREEMENT
-    var aagreement = createNewAgreement(); //(LINEA 109)
+    //var aagreement = createNewAgreement(); //(LINEA 109)
     //Insert new level and level category
     //insertLevelAndCat(aagreement); //(LINEA 213)
     //Erase a level
@@ -88,13 +88,13 @@ aon.agreement.get(pool,
     //eraseData(agreement); //(LINEA 388)
 
     // SET AGREEMENT TEST
-    aon.agreement.set(pool,
-      aagreement,
-      function(pool, aagreement){
-        // console.log(aagreement.id);
-        process.exit();
-      }
-    );
+    // aon.agreement.set(pool,
+    //   aagreement,
+    //   function(pool, aagreement){
+    //     // console.log(aagreement.id);
+    //     process.exit();
+    //   }
+    // );
 
     // modificarAgreement(agreement); //modifica description
     // modificarPayments(agreement); //modifica payments
@@ -102,8 +102,8 @@ aon.agreement.get(pool,
     // modificarLevelCategory(agreement); //modifica levelCategory
     // modificarPeriods(agreement); //modifica Periods
 
-    // process.stdout.write(JSON.stringify(agreement));
-    // process.exit();
+    process.stdout.write(JSON.stringify(agreement));
+    process.exit();
   }
 );
 

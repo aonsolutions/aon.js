@@ -64,7 +64,7 @@ var lessThanEquals = function(date1, date2){
 }
 
 
-aon.oldAgreement.get(pool,
+aon.agreement.get(pool,
   function(params){ return params.id.equals(1156)},
   function(pool, agreement){
 

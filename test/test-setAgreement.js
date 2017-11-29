@@ -1,7 +1,13 @@
 var aon = require("..");
-var mysql = require("mysql");
 
-var connection  = mysql.createConnection({
+var sql = require("sql");
+sql.setDialect("mysql");
+
+var mysql = require("mysql");
+var master = require("../lib/master")(sql);
+var database = require("../lib/database");
+
+var pool  = mysql.createPool({
 	supportBigNumbers : true,
 	multipleStatements : true,
 
@@ -10,6 +16,16 @@ var connection  = mysql.createConnection({
   password : 'r00t',
 	database : 'pro-aonsolutions-net'
 });
+
+// var connection  = sql.createConnection({
+// 	supportBigNumbers : true,
+// 	multipleStatements : true,
+//
+// 	host     : process.env.MYSQL_HOST || '127.0.0.1',
+//   user     : 'root',
+//   password : 'r00t',
+// 	database : 'pro-aonsolutions-net'
+// });
 
 // aon.agreement.setAgreement(
 // 	createBasicAgreement(),
@@ -27,21 +43,44 @@ var connection  = mysql.createConnection({
 //   }
 // );
 
-aon.agreement.draftAgreement(
-	draftAgreementTest(),
-  function (sql, next) {
-    connection.query({
-      sql: sql.text,
-      values: sql.values
-    },
-    function(error, results, fields) {
-      console.log(sql);
-      if ( error )
-        throw error;
-      next();
-    });
-  }
-);
+draftAllAgreementsTest = function(){
+	console.log(" ............ COGIENDO IDs ...........");
+
+	var query = master.agreement
+		.select(master.agreement.id)
+		.from(master.agreement)
+		.where(master.agreement.id.greaterThanEquals(0))
+		.toQuery();
+
+	database.query(
+		pool,
+		query.text,
+		query.values,
+		function(error, results, fields){
+			for(var i = 0; i < results.length; i++){
+				console.log(results[i]);
+			}
+		}
+	);
+}
+
+draftAllAgreementsTest();
+
+// aon.agreement.draftAgreement(
+// 	draftAgreementTest(),
+//   function (sql, next) {
+//     connection.query({
+//       sql: sql.text,
+//       values: sql.values
+//     },
+//     function(error, results, fields) {
+//       console.log(sql);
+//       if ( error )
+//         throw error;
+//       next();
+//     });
+//   }
+// );
 
 function createBasicAgreement(){
 	var newAgreement =

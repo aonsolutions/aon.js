@@ -17,6 +17,17 @@ var pool  = mysql.createPool({
 	database : 'pro-aonsolutions-net'
 });
 
+var connection  = mysql.createConnection({
+	supportBigNumbers : true,
+	multipleStatements : true,
+
+	host     : process.env.MYSQL_HOST || '127.0.0.1',
+  user     : 'root',
+  password : 'r00t',
+	database : 'pro-aonsolutions-net'
+  //database : 'test-aonsolutions-org'
+});
+
 // var connection  = sql.createConnection({
 // 	supportBigNumbers : true,
 // 	multipleStatements : true,
@@ -47,9 +58,9 @@ draftAllAgreementsTest = function(){
 	console.log(" ............ COGIENDO IDs ...........");
 
 	var query = master.agreement
-		.select(master.agreement.id)
+		.select(master.agreement.star())
 		.from(master.agreement)
-		.where(master.agreement.id.greaterThanEquals(0))
+		.where(master.agreement.id.gt(0))
 		.toQuery();
 
 	database.query(
@@ -58,7 +69,27 @@ draftAllAgreementsTest = function(){
 		query.values,
 		function(error, results, fields){
 			for(var i = 0; i < results.length; i++){
-				console.log(results[i]);
+				// console.log("Records :"+results.length);
+				// console.log("id :"+ results[i].id +", domain :"+
+				// 						results[i].domain +", description :"+
+				// 						results[i].description);
+
+				var newAgreement = createNewAregreement(results[i]);
+				aon.agreement.draftAgreement(
+					newAgreement,
+				  function (sql, next) {
+				    connection.query({
+				      sql: sql.text,
+				      values: sql.values
+				    },
+				    function(error, results, fields) {
+				      console.log(sql);
+				      if ( error )
+				        throw error;
+				      next();
+				    });
+				  }
+				);
 			}
 		}
 	);
@@ -81,6 +112,17 @@ draftAllAgreementsTest();
 //     });
 //   }
 // );
+
+function createNewAregreement(recordAgreement){
+	var draftAgreement =
+	{
+	  id:recordAgreement.id,
+	  domain : recordAgreement.domain,
+		draft : 1,
+	  description: recordAgreement.description,
+	}
+	return draftAgreement;
+}
 
 function createBasicAgreement(){
 	var newAgreement =
@@ -207,7 +249,7 @@ function createBasicAgreement(){
 function draftAgreementTest(){
 	var draftAgreement =
 	{
-	  id:-1157,
+	  id:1157,
 	  domain : 8776,
 		draft : 1,
 	  description: 'CONVENIO DE SERGIO VALDEPEÑAS DEL POZO',

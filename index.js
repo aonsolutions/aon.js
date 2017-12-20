@@ -6,6 +6,7 @@ module.exports = {
 	//, agreement : require('./lib/agreement')
 	, invoice : require ('./lib/invoice/invoiceImportDynamo')
 	, settlement : require('./lib/settlement')
-	//, auth : require ('./lib/auth/auth')
+	, auth : require ('./lib/auth/auth')
+	, user: require('./lib/dynamo/user')
 	//, file : require ('./lib/file')
 };

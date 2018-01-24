@@ -1,28 +1,22 @@
-// var tedi = require('..');
-//
-// module.exports = function ( pool, callback ) {
-//
-// 	tedi.agreement.get(
-// 		pool,
-// 		function ( params ) { return params.id.equals(1156)},
-// 		function( error, results, fields ){
-// 			console.log(results);
-// 			callback();
-// 		}
-// 	);
-//
-// };
-
-
 var aon = require("..");
 var mysql = require("mysql");
 
-var pool  = mysql.createPool({
-  host     : '127.0.0.1',
+var connection = mysql.createConnection({
+	supportBigNumbers : true,
+	multipleStatements : true,
+
+	host     : process.env.MYSQL_HOST || '127.0.0.1',
   user     : 'root',
   password : 'r00t',
-  database : 'test-aonsolutions-org'
+	database : 'test-aonsolutions-org'
 });
+
+// var pool  = mysql.createPool({
+//   host     : '127.0.0.1',
+//   user     : 'root',
+//   password : 'r00t',
+//   database : 'test-aonsolutions-org'
+// });
 
 //Comprueba si ambas fechas son iguales
 var greaterThanEquals = function(date1, date2){
@@ -64,9 +58,10 @@ var lessThanEquals = function(date1, date2){
 }
 
 
-aon.agreement.get(pool,
-  function(params){ return params.id.equals(1156)},
-  function(pool, agreement){
+aon.agreementGet.get(connection,
+  //function(params){ return params.id.equals(1156)},
+  1192,
+  function(connection, agreement){
 
     //Create new AGREEMENT
     //var aagreement = createNewAgreement(); //(LINEA 109)

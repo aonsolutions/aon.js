@@ -17,7 +17,7 @@
 		"googleapis": "^21.3.0",
 		"https": "^1.0.0",
 		"jwt-simple": "^0.5.1",
-		"moment": "^2.18.1",
+		"moment": "^2.19.3",
 		"mysql": "^2.14.1",
 		"pdf-image": "^1.1.0",
 		"pdfkit": "^0.8.3",
@@ -28,7 +28,8 @@
 	"devDependencies": {
 		"commander": "^2.11.0",
 		"eslint": "^4.6.1",
-		"sql-generate": "^1.5.0"
+		"sql-generate": "^1.5.0",
+		"aws-sdk": "^2.179.0"
 	},
 	"scripts": {
 		"lint": "eslint .",

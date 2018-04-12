@@ -1,5 +1,5 @@
 var fs = require('fs');
-var cmd = require('commander')
+var cmd = require('commander');
 var sqlGenerate = require('sql-generate');
 
 cmd

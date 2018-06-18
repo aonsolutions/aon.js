@@ -22,122 +22,112 @@ payrollJSON = {
     end_date : '30/04/2016',
     total_days: 30
   },
-  accruals : {
-    salary_perception : {
-      perceptions : [
-          {
-            expression : "Salario base",
-            value : 1233
-          },
-          {
-            expression : "Salario base 1",
-            value : 12334
-          },
-          {
-            expression : "Salario base 2",
-            value : 123345
-          },
-          {
-            expression : "Salario base 3",
-            value : 1233456
-          },
-          {
-            expression : "Salario base 4",
-            value : 1233456
-          },
-          {
-            expression : "Salario base 5",
-            value : 1233456
-          },
-          {
-            expression : "Salario base 6",
-            value : 1233456
-          }
-      ],
-      salary_complements : [
+  accruals : [
+    {
+      accrual_name : "1. Percepciones salariales",
+      types : [
         {
-          expression : "Plus convenio",
-          value : 400
-        }
-      ],
-      extra_hours : 200,
-      extra_perks : 40,
-      salary_spice : 89
-    },
-    non_salary_perception : {
-      compensations : [],
-      compensations_SS : [],
-      other_perceptions : [
-        {
-          expression : "Percepción 1",
-          value : 1
+          type_expression : "Salario base anual",
+          type_value : 295.9
         }
       ]
     },
-    total_accrual : 4800.53
-  },
-  deductions : {
-    employee_contributions : {
-      common_contingency : {
-        percent : 4.7,
-        value : 55.84
-      },
-      unemployment : {
-        percent : 1.6,
-        value : 19.02
-      },
-      professional_training : {
-        percent : 1,
-        value : 1.19
-      },
-      extra_hours_e : {
-        percent : 0,
-        value : 0
-      },
-      extra_hours_ne : {
-        percent : 0,
-        value : 0
-      },
-      total_contributions : 76.04
+    {
+      accrual_name : "4. Pagas extraordinarias prorrateo",
+      types : [
+        {
+          type_expression : "Paga extraordinaria Junio",
+          type_value : 24.66
+        },
+        {
+          type_expression : "Paga extraordinaria Navidad",
+          type_value : 24.66
+        }
+      ]
+    }
+  ],
+  total_accrual : 345.21,
+  deductions : [
+    {
+      name : "Contingencias comunes",
+      percent : 4.7,
+      value : 16.77
     },
-    taxes : {
-      percent : 5,
-      value : 59.1
+    {
+      name : "Desempleo",
+      percent : 1.55,
+      value : 5.53
     },
-    advance : 0,
-    species : 0,
-    other_deductions : 0,
-    total_deductions : 135.44
-  },
-  liquid_perceive : 1052.65,
+    {
+      name : "Formación profesional",
+      percent : 0.1,
+      value : 0.36
+    },
+    {
+      name : "Fuerza mayor o estructurales (HE)",
+      percent: 0,
+      value : 0
+    },
+    {
+      name : "No estructurales (HE)",
+      percent : 0,
+      value : 0
+    },
+    {
+      name : "Impuesto sobre la renta de personas físicas",
+      percent : 0,
+      value : 0
+    },
+    {
+      name : "Anticipos",
+      percent : 0,
+      value : 0
+    },
+    {
+      name : "Valor de los productos recibidos en especie",
+      percent : 0,
+      value : 0
+    },
+    {
+      name : "Otras deducciones",
+      percent : 0,
+      value : 0
+    }
+  ],
+  total_contributions : 22.65,
+  total_deductions : 22.65,
+  liquid_perceive : 322.56,
   signature_logo : '/Users/sergio/Desktop/aon.png',
   footer_ss_quotation : {
     common_contingency : {
-      monthly_remuneration : 1188.09,
-      extraordinary_pay_packet : 408.56,
-      base : 1188.09,
+      monthly_remuneration : 345.21,
+      extraordinary_pay_packet : 0,
+      base : 356.72,
       type_percent : 23.6,
-      company_input : 280.39
+      company_input : 84.19
     },
     professional_contingency : {
-      base : 1188.09,
+      base : 356.72,
       type_percent_at : 1.35,
-      company_input_at : 16.04,
-      type_percent_unemployment : 6.7,
-      company_input_unemployment : 79.6,
+      company_input_at : 4.82,
+      type_percent_unemployment : 5.5,
+      company_input_unemployment : 19.62,
       type_percent_professional_formation : 0.6,
-      company_input_professional_formation : 7.13,
+      company_input_professional_formation : 2.14,
       type_percent_salary_warranty : 0.2,
-      company_input_salary_warranty : 2.38
+      company_input_salary_warranty : 0.71
     },
     aditional_quotation : {
-      base_overwhelming_force : 458.78,
+      base_overwhelming_force : 0,
       company_input_overwhelming_force : 0,
-      base_non_structural : 58.79,
+      base_non_structural : 0,
       company_input_non_structural : 0
     },
-    base_irpf : 1188.06
+    base_irpf : 345.21
   }
 };
 
-payroll.spanishPayroll(payrollJSON, process.stdout);
+// payroll.standardPayroll(payrollJSON, process.stdout);
+payroll.standardTwoColumnsPayroll(payrollJSON, process.stdout);
+// payroll.salaryRecibeCRA(payrollJSON, process.stdout);
+// payroll.salaryRecibe(payrollJSON, process.stdout);

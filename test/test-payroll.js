@@ -2,6 +2,7 @@ var fs = require('fs');
 var payroll = require('../lib/payroll');
 
 payrollJSON = {
+  logo : '/Users/sergio/Desktop/aon.png',
   enterprise : {
     name : 'PRUEBAS LABORAL',
     address : 'Calle Duque de Wellington, 52 (01010)', //Calle, numero, cp
@@ -24,24 +25,82 @@ payrollJSON = {
   },
   accruals : [
     {
-      accrual_name : "1. Percepciones salariales",
+      accrual_name : "01. Percepciones salariales",
       types : [
         {
           type_expression : "Salario base anual",
+          code : 0001,
+          type_value : 295.9
+        },
+        {
+          type_expression : "Salario base anual",
+          code : 0001,
+          type_value : 295.9
+        },
+        {
+          type_expression : "Salario base anual",
+          code : 0001,
           type_value : 295.9
         }
       ]
     },
     {
-      accrual_name : "4. Pagas extraordinarias prorrateo",
+      accrual_name : "02. Horas extraordinarias",
+      types : [
+        {
+          type_expression : "Horas extras mes de Junio",
+          code : 0002,
+          type_value : 19
+        }
+      ]
+    },
+    {
+      accrual_name : "04. Pagas extraordinarias prorrateo",
       types : [
         {
           type_expression : "Paga extraordinaria Junio",
+          code : 0004,
           type_value : 24.66
         },
         {
           type_expression : "Paga extraordinaria Navidad",
+          code : 0004,
           type_value : 24.66
+        }
+      ]
+    },
+    {
+      accrual_name : "15. Retribuciones en especie",
+      types : [
+        {
+          type_expression : "Móvil de empresa",
+          code : 0015,
+          type_value : 499.99
+        }
+      ]
+    },
+    {
+      accrual_name : "38. Primas de seguro",
+      types : [
+        {
+          type_expression : "Prima seguro trabajador",
+          code : 0038,
+          type_value : 25.3
+        }
+      ]
+    },
+    {
+      accrual_name : "42. Gastos de locomocion y estancia",
+      types : [
+        {
+          type_expression : "kilometraje en vehículo propio",
+          code : 0042,
+          type_value : 100
+        },
+        {
+          type_expression : "dietas viaje a Madid",
+          code : 0042,
+          type_value : 44.1
         }
       ]
     }
@@ -74,24 +133,53 @@ payrollJSON = {
       value : 0
     },
     {
-      name : "Impuesto sobre la renta de personas físicas",
-      percent : 0,
-      value : 0
+      name : "Dinerario",
+      percent : 33,
+      value : 5.5
+    },
+    {
+      name : "Especie",
+      percent : 66.3,
+      value : 10
     },
     {
       name : "Anticipos",
-      percent : 0,
-      value : 0
+      types : [
+        {
+          name : "Anticipos 1",
+          value : 50.05
+        },
+        {
+          name : "Anticipos 2",
+          value : 8.9
+        }
+      ]
     },
     {
       name : "Valor de los productos recibidos en especie",
-      percent : 0,
-      value : 0
+      types : [
+        {
+          name : "Especie 1",
+          value : 99.98
+        },
+        {
+          name : "Especie 2",
+          value : 5.21
+        }
+      ]
     },
     {
       name : "Otras deducciones",
-      percent : 0,
-      value : 0
+      types : [
+        {
+          name : "Deducción 1",
+          value : 12
+        },
+        {
+          name : "Deducción 2",
+          value : 31.12
+        }
+      ]
     }
   ],
   total_contributions : 22.65,
@@ -123,11 +211,12 @@ payrollJSON = {
       base_non_structural : 0,
       company_input_non_structural : 0
     },
-    base_irpf : 345.21
+    base_irpf : 15.5
   }
 };
 
 // payroll.standardPayroll(payrollJSON, process.stdout);
-payroll.standardTwoColumnsPayroll(payrollJSON, process.stdout);
+payroll.newStandardPayroll(payrollJSON, process.stdout);
+// payroll.standardTwoColumnsPayroll(payrollJSON, process.stdout);
 // payroll.salaryRecibeCRA(payrollJSON, process.stdout);
 // payroll.salaryRecibe(payrollJSON, process.stdout);
